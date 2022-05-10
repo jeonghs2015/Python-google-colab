@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="EUC-KR"%>
-<%@ page import="user.UserDAO" %>
-<%@ page import="java.io.PrintWriter" %>
+<%@ include file="UserDAO.jsp" %>
+
 <% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="user" class="user.User" scope="page" />
-<jsp:setProperty name="user" property="userID" />
-<jsp:setProperty name="user" property="userPassword" />
+<%
+User User = (User)request.getAttribute("User");
+if(User == null){
+	User = new User();
+	request.setAttribute("User", User);
+}
+User.setUserID(request.getParameter("userID"));
+User.setUserPassword(request.getParameter("userPassword"));
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +20,8 @@
 <title>JSP 게시판 웹 사이트</title>
 </head>
 <body>
-	<%
+	<%	
+		
 		String userID = null;
 		if(session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
@@ -26,9 +34,9 @@
 			script.println("</script>");
 		}
 		UserDAO userDAO = new UserDAO();
-		int result = userDAO.login(user.getUserID(), user.getUserPassword());
+		int result = userDAO.login(User.getUserID(), User.getUserPassword());
 		if(result == 1) {
-			session.setAttribute("userID", user.getUserID());
+			session.setAttribute("userID", User.getUserID());
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("location.href = 'main.jsp'");
