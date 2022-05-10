@@ -1,14 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="EUC-KR"%>
-<%@ page import="user.UserDAO" %>
+
+<%@ include file="UserDAO.jsp" %>
+
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="user" class="user.User" scope="page" />
-<jsp:setProperty name="user" property="userID" />
-<jsp:setProperty name="user" property="userPassword" />
-<jsp:setProperty name="user" property="userName" />
-<jsp:setProperty name="user" property="userGender" />
-<jsp:setProperty name="user" property="userEmail" />
+
+<%
+User User = (User)request.getAttribute("User");
+if(User == null){
+	User = new User();
+	request.setAttribute("User", User);
+}
+User.setUserID(request.getParameter("userID"));
+User.setUserPassword(request.getParameter("userPassword"));
+User.setUserName(request.getParameter("userName"));
+User.setUserGender(request.getParameter("userGender"));
+User.setUserEmail(request.getParameter("userEmail"));
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +37,7 @@
 			script.println("location.href = 'main.jsp'");
 			script.println("</script>");
 		}
-		if(user.getUserID() == null || user.getUserPassword() == null || user.getUserName() == null || user.getUserGender() == null || user.getUserEmail() == null){
+		if(User.getUserID() == null || User.getUserPassword() == null || User.getUserName() == null || User.getUserGender() == null || User.getUserEmail() == null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('입력이 안 된 사항이 있습니다.')");
@@ -36,7 +45,7 @@
 			script.println("</script>");
 		} else{
 			UserDAO userDAO = new UserDAO();
-			int result = userDAO.join(user);
+			int result = userDAO.join(User);
 			if(result == -1) {
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
@@ -44,7 +53,7 @@
 				script.println("history.back()");
 				script.println("</script>");
 			} else {
-				session.setAttribute("userID", user.getUserID());
+				session.setAttribute("userID", User.getUserID());
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("location.href = 'main.jsp'");
