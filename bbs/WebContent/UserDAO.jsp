@@ -70,5 +70,19 @@ public class UserDAO {
 		return ""; //데이터베이스 오류
 	}
 	
+	public String getNext() {
+		String SQL = "SELECT userID from USER order by ";
+		try{
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getString(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ""; //데이터베이스 오류
+	}
+	
 }
 %>
