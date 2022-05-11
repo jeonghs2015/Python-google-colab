@@ -65,18 +65,20 @@
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr>
-						<th style="background-color:#eeeeee; text-align:center;">번호</th>
-						<th style="background-color:#eeeeee; text-align:center;">제목</th>
-						<th style="background-color:#eeeeee; text-align:center;">작성자</th>
-						<th style="background-color:#eeeeee; text-align:center;">작성일</th>
+						<th style="background-color:#eeeeee; text-align:center;">회원아이디</th>
+						<th style="background-color:#eeeeee; text-align:center;">회원이름</th>
+						<th style="background-color:#eeeeee; text-align:center;">회원비밀번호</th>
+						<th style="background-color:#eeeeee; text-align:center;">회원성별</th>
+						<th style="background-color:#eeeeee; text-align:center;">회원이메일</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>1</td>
-						<td>글 제목</td>
-						<td>글쓴이 정호석</td>
-						<td>2022-05-04</td>
+						<td>gildong</td>
+						<td>홍길동</td>
+						<td>123456</td>
+						<td>남자</td>
+						<td>gildong@naver.com</td>
 					</tr>	
 				</tbody>
 			</table>
